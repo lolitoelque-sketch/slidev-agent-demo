@@ -1,0 +1,136 @@
+/* style.css — global design tokens, auto-loaded by Slidev */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  /* ---- surfaces ---- */
+  --fd-bg: #0f1115;
+  --fd-bg-alt: #111111;
+  --fd-surface: rgba(255, 255, 255, 0.025);
+  --fd-surface-hover: rgba(255, 255, 255, 0.05);
+  --fd-surface-active: rgba(255, 255, 255, 0.07);
+
+  /* ---- borders ---- */
+  --fd-border: rgba(255, 255, 255, 0.16);
+  --fd-border-strong: rgba(255, 255, 255, 0.34);
+  --fd-border-soft: rgba(255, 255, 255, 0.08);
+
+  /* ---- text ---- */
+  --fd-text: #f3f5f7;
+  --fd-text-dim: #8a93a3;
+  --fd-text-faint: #5b6372;
+
+  /* ---- accents ---- */
+  --fd-blue: #8fd3fe;
+  --fd-blue-dim: rgba(143, 211, 254, 0.55);
+  --fd-orange: #ffb089;
+  --fd-orange-dim: rgba(255, 176, 137, 0.55);
+
+  /* ---- type ---- */
+  --fd-mono: 'JetBrains Mono', 'IBM Plex Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace;
+}
+
+.slidev-page,
+.slidev-layout {
+  background: var(--fd-bg) !important;
+  font-family: var(--fd-mono);
+  color: var(--fd-text);
+}
+
+.slidev-layout {
+  font-family: var(--fd-mono);
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 {
+  font-family: var(--fd-mono);
+  letter-spacing: -0.01em;
+}
+
+/* thin, technical scrollbars to match the rest of the system */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--fd-border);
+  border-radius: 4px;
+}
+
+.fd-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fd-text-dim);
+}
+
+.fd-dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+@keyframes fd-dash-flow {
+  to {
+    stroke-dashoffset: -200;
+  }
+}
+
+@keyframes fd-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+/* ----------------------------------------------------------------------
+ * Motion Slides — the "infinite canvas" effect
+ * ----------------------------------------------------------------------
+ * Slidev can drive slide navigation through the browser's native View
+ * Transitions API (`transition: view-transition` in slides.md). When two
+ * elements on consecutive slides share the same `view-transition-name`,
+ * the browser morphs one into the other — position, size, and content
+ * cross-fade — instead of cutting. That's the "camera glides across one
+ * big canvas" illusion: the eyebrow label, the slide title, and the main
+ * content "frame" keep their identity as you move cover → map → deep-dive
+ * → summary, so it reads as one continuous space instead of four slides.
+ *
+ * Apply these classes to the matching elements on each slide (see
+ * slides.md and ArchitectureCanvas.vue). Each name can only be in use by
+ * ONE on-screen element at a time, which is naturally true here since
+ * every slide has exactly one eyebrow / one title / one main frame.
+ * ------------------------------------------------------------------- */
+.vt-eyebrow { view-transition-name: fd-vt-eyebrow; }
+.vt-title { view-transition-name: fd-vt-title; }
+.vt-frame { view-transition-name: fd-vt-frame; }
+
+/* Default View Transition timing (~250ms, linear) reads as a snap, not a
+ * glide. Slow it down and ease it like a camera move. */
+::view-transition-group(fd-vt-eyebrow),
+::view-transition-group(fd-vt-title),
+::view-transition-group(fd-vt-frame) {
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+::view-transition-old(fd-vt-eyebrow),
+::view-transition-new(fd-vt-eyebrow),
+::view-transition-old(fd-vt-title),
+::view-transition-new(fd-vt-title),
+::view-transition-old(fd-vt-frame),
+::view-transition-new(fd-vt-frame) {
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

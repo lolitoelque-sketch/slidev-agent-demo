@@ -1,0 +1,25 @@
+{
+  "name": "el-flujo-de-la-idea-al-pr",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Interactive architecture-map presentation — De la idea al PR. Built with Slidev + Vue 3 + custom SVG flow system.",
+  "scripts": {
+    "dev": "slidev --open",
+    "build": "slidev build",
+    "export": "slidev export",
+    "preview": "vite preview --outDir dist"
+  },
+  "dependencies": {
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@slidev/cli": "latest",
+    "@slidev/types": "latest",
+    "@iconify-json/carbon": "latest",
+    "playwright-chromium": "latest"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
